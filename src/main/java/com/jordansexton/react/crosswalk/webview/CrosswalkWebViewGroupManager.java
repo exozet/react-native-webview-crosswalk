@@ -106,6 +106,13 @@ public class CrosswalkWebViewGroupManager extends ViewGroupManager<CrosswalkWebV
         ((CrosswalkWebView) view).setMessagingEnabled(enabled);
     }
 
+    @ReactProp(name = "userAgent")
+    public void setUserAgent(XWalkView view, @Nullable String userAgent) {
+      if (userAgent != null) {
+        ((CrosswalkWebView) view).getSettings().setUserAgentString(userAgent);
+      }
+    }
+
     @ReactProp(name = "url")
     public void setUrl (final CrosswalkWebView view, @Nullable final String url) {
         Activity _activity = reactContext.getCurrentActivity();
