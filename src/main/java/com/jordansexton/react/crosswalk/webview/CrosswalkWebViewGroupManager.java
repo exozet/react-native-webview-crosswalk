@@ -33,6 +33,10 @@ public class CrosswalkWebViewGroupManager extends ViewGroupManager<CrosswalkWebV
 
     public static final int POST_MESSAGE = 4;
 
+    public static final int COMMAND_STOP_LOADING = 5;
+
+    public static final int COMMAND_INJECT_JAVASCRIPT = 6;
+
     @VisibleForTesting
     public static final String REACT_CLASS = "CrosswalkWebView";
 
@@ -139,7 +143,9 @@ public class CrosswalkWebViewGroupManager extends ViewGroupManager<CrosswalkWebV
             "goBack", GO_BACK,
             "goForward", GO_FORWARD,
             "reload", RELOAD,
-            "postMessage", POST_MESSAGE
+            "postMessage", POST_MESSAGE,
+            "stopLoading", COMMAND_STOP_LOADING,
+            "injectJavaScript", COMMAND_INJECT_JAVASCRIPT
         );
     }
 
@@ -155,6 +161,9 @@ public class CrosswalkWebViewGroupManager extends ViewGroupManager<CrosswalkWebV
             case RELOAD:
                 view.reload(XWalkView.RELOAD_NORMAL);
                 break;
+            case COMMAND_STOP_LOADING:
+                view.stopLoading();
+                break;
             case POST_MESSAGE:
                 try {
                     JSONObject eventInitDict = new JSONObject();
@@ -163,6 +172,9 @@ public class CrosswalkWebViewGroupManager extends ViewGroupManager<CrosswalkWebV
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
+                break;
+            case COMMAND_INJECT_JAVASCRIPT:
+                view.evaluateJavascript(args.getString(0));
                 break;
         }
     }
