@@ -174,7 +174,7 @@ public class CrosswalkWebViewGroupManager extends ViewGroupManager<CrosswalkWebV
                 }
                 break;
             case COMMAND_INJECT_JAVASCRIPT:
-                view.evaluateJavascript(args.getString(0));
+                view.evaluateJavascript(args.getString(0), null);
                 break;
         }
     }
